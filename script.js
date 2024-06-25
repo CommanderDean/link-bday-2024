@@ -152,7 +152,7 @@ function showResult(isCorrect) {
           resultImage.src = currentQuestion.correctImage;
       } else {
           resultImage.src = currentQuestion.incorrectImage;
-          incorrectSound.play().catch(e => console.error("Error playing incorrect sound:", e));
+          //incorrectSound.play().catch(e => console.error("Error playing incorrect sound:", e));
      
       }
       resultImage.style.display = 'block';
@@ -183,6 +183,7 @@ function showResult(isCorrect) {
       resultMessage.textContent = 'Incorrect. Try again!';
       continueButton.style.display = 'block';
       continueButton.textContent = 'Try Again';
+      incorrectSound.play().catch(e => console.error("Error playing incorrect sound:", e));
   }
 }
 
