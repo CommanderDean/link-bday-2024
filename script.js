@@ -13,7 +13,9 @@ const startButton = document.getElementById('start-button');
 const playMusicButton = document.getElementById('play-music-button');
 const backgroundMusic = document.getElementById('background-music');
 const incorrectSound = document.getElementById('incorrect-sound');
+console.log('Incorrect sound element:', incorrectSound);
 backgroundMusic.loop = false;
+incorrectSound.load();
 
 playMusicButton.addEventListener('click', () => {
   if (backgroundMusic.paused) {
