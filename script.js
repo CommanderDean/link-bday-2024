@@ -10,8 +10,25 @@ const resultMessage = document.getElementById('result-message');
 const continueButton = document.getElementById('continue-button');
 const landingPage = document.getElementById('landing-page');
 const startButton = document.getElementById('start-button');
+const playMusicButton = document.getElementById('play-music-button');
 const backgroundMusic = document.getElementById('background-music');
+const incorrectSound = document.getElementById('incorrect-sound');
 backgroundMusic.loop = false;
+
+playMusicButton.addEventListener('click', () => {
+  if (backgroundMusic.paused) {
+      backgroundMusic.play()
+          .then(() => {
+              playMusicButton.textContent = 'Pause Music';
+          })
+          .catch(error => {
+              console.error('Error playing music:', error);
+          });
+  } else {
+      backgroundMusic.pause();
+      playMusicButton.textContent = 'Play Music';
+  }
+});
 
 const quizData = [
     { 
@@ -114,7 +131,7 @@ function loadQuestion() {
 function checkAnswer() {
   const userAnswer = answerInput.value.trim().toLowerCase();
   const correctAnswer = quizData[currentQuestionIndex].answer.toLowerCase();
-
+  resultContainer.classList.add('celebrate');
   if (userAnswer === correctAnswer) {
       showResult(true);
   } else {
@@ -133,6 +150,8 @@ function showResult(isCorrect) {
           resultImage.src = currentQuestion.correctImage;
       } else {
           resultImage.src = currentQuestion.incorrectImage;
+          incorrectSound.play().catch(e => console.error("Error playing incorrect sound:", e));
+     
       }
       resultImage.style.display = 'block';
   } else {
