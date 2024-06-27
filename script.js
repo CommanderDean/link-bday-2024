@@ -69,6 +69,37 @@ const quizData = [
       incorrectImage: 'images/nope.webp',
       audio: 'sound/applause.wav'
   },
+
+  { 
+    question: "In Japan, Lily and Lincoln wanted a photo in front of a train covered in flashing lights.  What did it say in front of the train?", 
+    answer: "Shimbashi", 
+    correctImage: 'images/Dean-cheers.gif',
+    incorrectImage: 'images/nope.webp',
+    audio: 'sound/applause.wav'
+},
+{ 
+    question: "What does the white writing say on the bottom of King Kong's foot?", 
+    answer: "G1186", 
+    correctImage: 'images/dean-glasses.gif',
+    incorrectImage: 'images/nope.webp',
+    audio: 'sound/applause.wav'
+},
+{ 
+    question: "What does the green apple say on Lily's water bottle?", 
+    answer: "Excellent", 
+    correctImage: 'images/anna_wonderwoman.gif',
+    incorrectImage: 'images/nope.webp',
+    audio: 'sound/applause.wav'
+},
+{ 
+    question: "What number is on the fabuland mouse's shirt?", 
+    answer: "8", 
+    correctImage: 'images/dean-dnd.gif',
+    incorrectImage: 'images/nope.webp',
+    audio: 'sound/applause.wav'
+},
+
+
   { 
     question: "Inside the doorbell is a _____", 
     answer: "key", 
