@@ -17,6 +17,103 @@ console.log('Incorrect sound element:', incorrectSound);
 backgroundMusic.loop = false;
 incorrectSound.load();
 
+
+function preloadAssets() {
+    return new Promise((resolve, reject) => {
+        const imagesToPreload = [
+            'images/Strong-Link2.gif',
+            'images/nope.webp',
+            'images/well-done-despicable-me.gif',
+            'images/dogs.webp',
+            'images/groot.webp',
+            'images/dumbledore.webp',
+            'images/deadpool.webp',
+            'images/Dean-cheers.gif',
+            'images/dean-glasses.gif',
+            'images/anna_wonderwoman.gif',
+            'images/dean-dnd.gif',
+            'images/great-job-yes.gif',
+            'images/trex.gif',
+            'images/cookie.webp',
+            'images/fin.webp',
+            'images/darth-vader-fire.gif',
+            // Add paths to all other images
+        ];
+
+        const soundsToPreload = [
+            'sound/Lincoln.mp3',
+            'sound/nope.mp3',
+            'sound/applause.wav',
+            // Add paths to all other sounds
+        ];
+
+        let loadedCount = 0;
+        const totalAssets = imagesToPreload.length + soundsToPreload.length + 
+            quizData.reduce((acc, q) => acc + (q.correctImage ? 1 : 0) + (q.incorrectImage ? 1 : 0) + (q.audio ? 1 : 0), 0);
+
+        function assetLoaded() {
+            loadedCount++;
+            if (loadedCount === totalAssets) {
+                resolve();
+            }
+        }
+
+        // Preload images
+        imagesToPreload.forEach(imageSrc => {
+            const img = new Image();
+            img.onload = assetLoaded;
+            img.onerror = assetLoaded; // Count errors to avoid hanging
+            img.src = imageSrc;
+        });
+
+        // Preload sounds
+        soundsToPreload.forEach(soundSrc => {
+            const audio = new Audio();
+            audio.oncanplaythrough = assetLoaded;
+            audio.onerror = assetLoaded;
+            audio.src = soundSrc;
+        });
+
+        // Preload question-specific assets
+        quizData.forEach(question => {
+            if (question.correctImage) {
+                const img = new Image();
+                img.onload = assetLoaded;
+                img.onerror = assetLoaded;
+                img.src = question.correctImage;
+            }
+            if (question.incorrectImage) {
+                const img = new Image();
+                img.onload = assetLoaded;
+                img.onerror = assetLoaded;
+                img.src = question.incorrectImage;
+            }
+            if (question.audio) {
+                const audio = new Audio();
+                audio.oncanplaythrough = assetLoaded;
+                audio.onerror = assetLoaded;
+                audio.src = question.audio;
+            }
+        });
+    });
+}
+
+window.addEventListener('load', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.display = 'flex';
+
+    preloadAssets()
+        .then(() => {
+            loadingScreen.style.display = 'none';
+            // Your existing load event code here
+        })
+        .catch(error => {
+            console.error('Error preloading assets:', error);
+            loadingScreen.style.display = 'none';
+            // Your existing load event code here
+        });
+});
+
 playMusicButton.addEventListener('click', () => {
   if (backgroundMusic.paused) {
       backgroundMusic.play()
